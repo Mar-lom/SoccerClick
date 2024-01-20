@@ -5,24 +5,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="output.css" rel="stylesheet">
 </head>
-<body class="grid min-w-[350px]">
-    <div class="place-items-center">  
-
-        <div class="bg-black"> 
-
-            <div class="flex justify-between p-4 gap-2">
-                <button type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-32 h-12">Serie A 🍕</button>
-                <select id="countries" class="bg-gray-800 hover:bg-blue-700 text-white px-4 py-2 rounded w-33 h-12  p-2 ml-3"></select>
+<body>
+    <div class="">
+            <div class="top-buttons-container">
+                <button type="button" class="">Serie A 🍕</button>
             </div>
-          <div>
-                      
-          </div>       
-          <div class="text-left text-white text-1xl font-bold ml-4">Matches</div>                    
-          <div class="grid grid-cols-2 gap-4 p-4" id="liveMatchContainers"></div>
-          </div>
-        </div>
-      </div>
+            <div class="match-day-select-container">
+              <select id="countries" class=""></select>
+            </div>
+
+          <div id="bold-header">Matches</div>
+
+          <div class="match-box-container" id="liveMatchContainers"></div>
   </div>
+  <footer style="float:right; padding-bottom: 5px;">Made By Mar 👊</footer>
 
   <script src="index.js"></script>
 </body>

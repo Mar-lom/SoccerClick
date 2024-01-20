@@ -1,0 +1,71 @@
+$primary-background-colour: #001514;
+$primary-font-color: #FBFFFE;
+$secondary-background-color: #022F40;
+$primary-font: Sans-serif;
+
+$left-padding: 5px;
+$right-padding: 5px;
+$top-padding: 5px;
+$bottom-padding: 5px;
+
+body {
+    background-color : $primary-background-colour;
+    width: 350px;
+    height: 400x;
+    color: $primary-font-color;
+    font-family: $primary-font;
+}
+
+.top-buttons-container {
+    padding-left: $left-padding;
+    padding-top: $top-padding;
+}
+
+
+.match-day-select-container {
+    padding-left: $left-padding;
+    padding-bottom: $bottom-padding;
+    padding-top : $top-padding   
+}
+
+#bold-header {
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: $left-padding;
+    padding-bottom: $bottom-padding;
+}
+
+.match-box-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    padding: 5px;
+}
+
+#match-games{
+    background-color: $secondary-background-color;
+    border-radius: 3px;
+
+}
+
+#clock {
+font-size: 11px;
+color: coral;
+padding-left: $left-padding;
+padding-top: $top-padding;
+padding-bottom: $bottom-padding;    
+}
+
+
+.team-container {
+    display: flex;
+    justify-content:space-between;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+#teams {
+    font-size: 15px;
+}
+

@@ -65,28 +65,24 @@ function triggerMatchScroll(e){
             let time = dateArray[1]
             matchStatus = date + ' ' + time
         }
-          div = `<div class='bg-gray-800 w-29 h-20 rounded p-2' id='match-games'>
-                  <div class='flex'>
-                      <div class='text-white text-sm font-bold'>
-                      ${matchStatus}
-                      </div>
+        div = `<div id='match-games'>
+        <div id='clock'>${matchStatus}</div>
+    <div class="team-container">
+        <div>${match.away_team_name}</div>
+        <div>${match.away_goal}</div>
+    </div>
+        
+    
+    <div class="team-container">
+        <div >${match.home_team_name}</div>
+        <div >${match.home_goal}</div>
+    </div>
 
-                  </div>
-                  <div class='flex justify-between '>
-                      <div class='text-white'>${match.away_team_name}</div>
-                      <div class='text-white'>${match.away_goal}</div>
-                  </div>
-                      
-                  
-                  <div class='flex justify-between'>
-                      <div class='text-white'>${match.home_team_name}</div>
-                      <div class='text-white'>${match.home_goal}</div>
-                  </div>
-                  </div>`;
+  </div>`;
 
       liveMatchContainers.innerHTML += div;
     })
-  }).then(res => console.log("Fetch Called 3"))
+  })
   }
 }
 
@@ -110,24 +106,22 @@ function triggerMatchScrollOnLoad(e){
         } else{
         matchStatus = match.date_time
         }
-        div = `<div class='bg-gray-800 w-29 h-20 rounded p-2' id='match-games'>
-        <div class='flex'>
-            <div class='text-white text-sm font-bold'>
-            ${matchStatus}
-            </div>
+       
+        div = `<div id='match-games'>
+                      <div id='clock'>${matchStatus}</div>
+                  <div class="team-container">
+                      <div>${match.away_team_name}</div>
+                      <div>${match.away_goal}</div>
+                  </div>
+                      
+                  
+                  <div class="team-container">
+                      <div >${match.home_team_name}</div>
+                      <div >${match.home_goal}</div>
+                  </div>
 
-        </div>
-        <div class='flex justify-between '>
-            <div class='text-white'>${match.away_team_name}</div>
-            <div class='text-white pl-2'>${match.away_goal}</div>
-        </div>
-            
-        
-        <div class='flex justify-between'>
-            <div class='text-white'>${match.home_team_name}</div>
-            <div class='text-white'>${match.home_goal}</div>
-        </div>
-        </div>`;
+                </div>`;
+
       liveMatchContainers.innerHTML += div;
     })
   })

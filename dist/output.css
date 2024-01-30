@@ -11,10 +11,23 @@ body {
   padding-top: 5px;
 }
 
-.match-day-select-container {
-  padding-left: 5px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+#main-nav ul {
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+}
+#main-nav ul li {
+  list-style-type: none;
+  border-radius: 2px;
+}
+#main-nav ul li button {
+  background: #16C172;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 #bold-header {
@@ -36,10 +49,25 @@ body {
   border-radius: 3px;
 }
 
-#clock {
+.time-date-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#date {
   font-size: 11px;
-  color: coral;
+  color: #16C172;
+  font-style: bold;
   padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#time {
+  font-size: 11px;
+  color: #2DE1FC;
+  font-style: bold;
+  padding-right: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
 }

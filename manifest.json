@@ -3,6 +3,10 @@
     "name": "Score Snap",
     "description": " A fun and easy way to view live soccer scores with a simple click. Stay updated with the latest matches and goals from your favorite leagues and teams.",
     "version": "1.0",
+
+    "host_permissions": [
+      "https://www.legaseriea.it/api/stats/live/*"
+    ],
     "action": {
       "default_popup": "dist/index.html",
       "default_icon": "assets/logo/logo_128.png",
@@ -16,5 +20,10 @@
         
 
     }
-  }
+
+  
+
+
+} 
+
   

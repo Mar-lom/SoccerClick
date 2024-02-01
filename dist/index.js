@@ -9,7 +9,7 @@ var requestOptions = {
 
 
 //Main API CALL - This CAlls the MatchDay Api that will return matchday IDS
-async function CallApiMatchWeek(){
+async function CallMatchWeekApi(){
 
   const response = await fetch("https://www.legaseriea.it/api/season/157617/championship/A/matchday?lang=en", requestOptions);
 
@@ -20,39 +20,43 @@ async function CallApiMatchWeek(){
 }
 
 
-async function CallApiForMatchDayData() {
+async function SortMatchesThatAreLiveOrToBePlayed() {
 
-  const arrMatchWeeks =[];
-  const arrMatchDays =[];
+  const matchWeeksArray =[];
 
-   const matchDayData = await CallApiMatchWeek();
+  const matchDaysArray =[];
 
-    matchDayData.data.forEach(element => {
+   const fetchedData = await CallMatchWeekApi();
+
+   fetchedData.data.forEach(element => {
     
       if (element.category_status == "LIVE" || element.category_status == "TO BE PLAYED"){
-        arrMatchWeeks.push(element.id_category);
+
+        matchWeeksArray.push(element.id_category);
         
       }
   })
 
-  for (i = 0; i < arrMatchWeeks.length; i++) {  //loop through all match Days.
+  for (i = 0; i < matchWeeksArray.length; i++) {  //loop through all match Days.
   
-   const response = await fetch(`https://www.legaseriea.it/api/stats/live/match?extra_link=&order=oldest&lang=en&season_id=157617&page=1&limit=20&pag=&match_day_id=${arrMatchWeeks[i]}`, requestOptions)
+   const response = await fetch(`https://www.legaseriea.it/api/stats/live/match?extra_link=&order=oldest&lang=en&season_id=157617&page=1&limit=20&pag=&match_day_id=${matchWeeksArray[i]}`, requestOptions)
   
    const result = await response.json();
 
-   arrMatchDays.push(result)
+   matchDaysArray.push(result)
+
   }
   
 
-  return arrMatchDays;
+  return matchDaysArray;
 
 }
 
 
 async function FilterEveryGameDate(){
 
-  const response = await CallApiForMatchDayData();
+  const response = await SortMatchesThatAreLiveOrToBePlayed();
+
   const arrMatchDates = []
 
   for (i = 0; i < response.length; i++) {  
@@ -61,14 +65,21 @@ async function FilterEveryGameDate(){
     
     
       for(j = 0 ; j < matches.length; j++){
-        //if (matches[j].match_day_category_status != "PLAYED"){
+        
+        if (matches[j].match_status != 2){ // 2 means its been played
+        
           const date_time = matches[j].date_time;
+
           const dateArray = date_time.split("T");
+
           const date = dateArray[0];
+
           const matchDateID = matches[j].match_day_id_category;
+          
           const array = new Array(matchDateID, date);
           arrMatchDates.push(array);
-        //}
+
+        }
         
       }
   }
@@ -87,6 +98,7 @@ async function FilterEveryGameDate(){
   for (let i = 0; i < matchWeekDays.length; i++) {
      
     if (i + 1 < matchWeekDays.length && matchWeekDays[i][1] != matchWeekDays[i + 1][1]) {
+
       groupedMatches.push(matchWeekDays[i]);
     }
 
@@ -102,7 +114,7 @@ async function CreateElementsForDateButtons(){
 
 const date = await triggerGroupMatches();
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
 
     let newUl = document.createElement('ul')
 
@@ -137,30 +149,26 @@ function LoadGameSelectMenu(e){
   .then(res => res.json())
   
   .then(data => { 
-
-    //console.log(data)
-
-    BuildAGameBlocks(data)
-
+    BuildAGameBlocks(data, e)
   })
 
 }
  
 
 
-  //COUNTRIES.addEventListener('change', LoadGameNewSelectedGameWeek);
+  // COUNTRIES.addEventListener('onload', LoadGameNewSelectedGameWeek);
 
-  function LoadGameNewSelectedGameWeek(e){
+  // function LoadGameNewSelectedGameWeek(e){
   
-    fetch(`https://www.legaseriea.it/api/stats/live/match?extra_link=&order=oldest&lang=en&season_id=157617&page=1&limit=20&pag=&match_day_id=${e.target.value}`, requestOptions)
+  //   fetch(`https://www.legaseriea.it/api/stats/live/match?extra_link=&order=oldest&lang=en&season_id=157617&page=1&limit=20&pag=&match_day_id=${e.target.value}`, requestOptions)
     
-    .then(res => res.json())
+  //   .then(res => res.json())
     
-    .then(data => { 
+  //   .then(data => { 
   
-      BuildAGameBlocks(data)
+  //     BuildAGameBlocks(data)
   
-    })}
+  //   })}
 
 
     
@@ -260,21 +268,28 @@ function triggerNameChange(team_name){
 
 
 
-function BuildAGameBlocks(e){
+function BuildAGameBlocks(e, event){
 
       const incomingMatchData = e.data.matches;
 
+      
       let div = " "; // empty string to reset the menu everytime the select is changed.
 
       liveMatchContainers.innerHTML = div;
 
       incomingMatchData.forEach(match => {
+        
+        
+
 
         let matchTime =  fixMatchTime(match)
         let matchDate =  fixMatchDate(match)
         let homeTeamName = triggerNameChange(match.home_team_name)
         let awayTeamName = triggerNameChange(match.away_team_name)
 
+        if(matchDate == event.target.innerHTML){
+
+        
         div = `<div id='match-games'>
 
                     <div class="time-date-container">
@@ -294,8 +309,9 @@ function BuildAGameBlocks(e){
               </div>`;
 
       liveMatchContainers.innerHTML += div;
-
+        }  
     })
+  
 }
 
 
